@@ -38,6 +38,7 @@ def record(columns, dataRow) {
     if (dataRow.first()) {
         def colName = dataRow.value(columns[0]);
         def enumName = getEnumName(colName);
+        OUT.append("// Domínio ").append(colName).append(NEWLINE);
         OUT.append("export enum ").append(enumName).append(" {").append(NEWLINE);
     }
 
