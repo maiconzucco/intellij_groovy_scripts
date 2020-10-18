@@ -1,10 +1,15 @@
-import com.intellij.database.util.Case
+/*
+ * Script for generate a typescript enum from a cg_ref_codes table
+ * Copyright (c) 2020 by Maicon Rafael Zucco
+ * https://github.com/maiconzucco/intellij_groovy_scripts/
+ */
 
+import com.intellij.database.util.Case
 import java.text.Normalizer
 import java.util.regex.Pattern
 
-NEWLINE   = System.getProperty("line.separator")
-TAB       = "  ";
+NEWLINE = System.getProperty("line.separator")
+TAB = "  ";
 
 def pascalCase(str) {
     com.intellij.psi.codeStyle.NameUtil.splitNameIntoWords(str)

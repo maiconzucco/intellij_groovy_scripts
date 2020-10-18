@@ -1,12 +1,15 @@
+/*
+ * Script for generate a interface typescript from a table
+ * Original script https://github.com/yasikovsky/intellij-poco-scripts/blob/master/Typescript%20POCO%20to%20clipboard.groovy
+ * Copyright (c) 2020 by Maicon Rafael Zucco
+ * https://github.com/maiconzucco/intellij_groovy_scripts/
+ */
+
 import com.intellij.database.model.DasTable
 import com.intellij.database.model.ObjectKind
 import com.intellij.database.util.Case
 import com.intellij.database.util.DasUtil
 
-/*
- * Script for generate a interface typescript from a table
- * Original script https://github.com/yasikovsky/intellij-poco-scripts/blob/master/Typescript%20POCO%20to%20clipboard.groovy
- */
 typeMapping = [
         (~/(?i)^bit$|tinyint\(1\)/)                      : "boolean",
         (~/(?i)^tinyint$/)                               : "number",
@@ -33,9 +36,9 @@ tempString = '';
 SELECTION.filter { it instanceof DasTable && it.getKind() == ObjectKind.TABLE }.each { generate(it) }
 CLIPBOARD.set(tempString)
 
-def String toCamelCase( String text) {
+def String toCamelCase(String text) {
     text = text.toLowerCase();
-    text = text.replaceAll( "(_)([A-Za-z0-9])", { Object[] it -> it[2].toUpperCase() } );
+    text = text.replaceAll("(_)([A-Za-z0-9])", { Object[] it -> it[2].toUpperCase() });
     return text;
 }
 
@@ -96,7 +99,7 @@ def generate(out, className, fields, table) {
 
 def calcFields(table) {
     DasUtil.getColumns(table).reduce([]) { fields, col ->
-        def spec = Case.LOWER.apply(col.getDataType().getSpecification()).replaceAll("\\(.*?\\)","");
+        def spec = Case.LOWER.apply(col.getDataType().getSpecification()).replaceAll("\\(.*?\\)", "");
         def typeStr = getType(col.getName(), spec)
         def nullable = col.isNotNull() || typeStr in notNullableTypes ? "" : "?"
         def pk = DasUtil.getPrimaryKey(table).toString();
