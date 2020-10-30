@@ -39,6 +39,7 @@ CLIPBOARD.set(tempString)
 def String toCamelCase(String text) {
     text = text.toLowerCase();
     text = text.replaceAll("(_)([A-Za-z0-9])", { Object[] it -> it[2].toUpperCase() });
+    // TODO: Fazer replace dos caracters - e +
     return text;
 }
 
@@ -77,20 +78,22 @@ def generate(out, className, fields, table) {
     out.println "export default interface $className {"
 
     fields.each() {
+        /*
         if (it.comment != "") {
             out.println "";
             out.println "    //${it.comment}";
-        }
+        }*/
 
         def line = "    ${it.name}: ${it.type}"
 
-        if (it != fields.last()) {
-            line += ","
-        }
+        // if (it != fields.last()) {
+            line += ";"
+        // }
 
+        /*
         if (it.comment != "") {
             line += " // ${it.comment}"
-        }
+        }*/
 
         out.println "${line}"
     }
