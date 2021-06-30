@@ -24,6 +24,7 @@ def String deAccent(String str) {
 }
 
 def String formatConstantName(String rvMeaning) {
+    rvMeaning = rvMeaning.replace(" ", "_");
     return  "cv" + pascalCase(deAccent(rvMeaning));
 }
 
